@@ -1,6 +1,6 @@
 import React from 'react'
 // import * as BooksAPI from './BooksAPI'
-import ListBooks from './ListBooks'
+import ListBooks from './components/ListBooks'
 import './App.css'
 
 const books = [
