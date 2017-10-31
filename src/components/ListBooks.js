@@ -1,5 +1,6 @@
 import React from 'react'
 import startCase from 'lodash.startcase'
+import PropTypes from 'prop-types'
 import Bookshelf from './Bookshelf'
 
 const ListBooks = (props) => (
@@ -19,5 +20,11 @@ const ListBooks = (props) => (
     </div>
   </div>
 )
+
+ListBooks.propTypes = {
+  title: PropTypes.string.isRequired,
+  onChangeShelf: PropTypes.func.isRequired,
+  books: PropTypes.array.isRequired
+}
 
 export default ListBooks
