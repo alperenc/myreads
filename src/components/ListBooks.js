@@ -10,7 +10,7 @@ const ListBooks = (props) => (
     <div className="list-books-content">
       <div>
         {props.books.map(book => book.shelf).filter((value, index, self) => self.indexOf(value) === index).map(shelf => (
-          <Bookshelf key={shelf} title={startCase(shelf)} books={props.books.filter(book => book.shelf === shelf)} />
+          <Bookshelf key={shelf} title={startCase(shelf)} onChangeShelf={props.onChangeShelf} books={props.books.filter(book => book.shelf === shelf)} />
         ))}
       </div>
     </div>

@@ -335,6 +335,17 @@ class BooksApp extends React.Component {
     showSearchPage: false
   }
 
+  changeShelf = (book, shelf) => {
+    this.setState(state => ({
+      books: state.books.map(b => {
+        if (b.id === book.id) {
+          b.shelf = shelf
+        }
+        return b
+      })
+    }))
+  }
+
   render() {
     return (
       <div className="app">
@@ -360,7 +371,7 @@ class BooksApp extends React.Component {
             </div>
           </div>
         ) : (
-            <ListBooks title="MyReads" books={this.state.books} />
+            <ListBooks title="MyReads" onChangeShelf={this.changeShelf} books={this.state.books} />
           )}
       </div>
     )
