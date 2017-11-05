@@ -346,6 +346,12 @@ class BooksApp extends React.Component {
     }))
   }
 
+  displaySearchPage = (event) => {
+    this.setState(state => ({
+      showSearchPage: event
+    }))
+  }
+
   render() {
     return (
       <div className="app">
@@ -371,7 +377,7 @@ class BooksApp extends React.Component {
             </div>
           </div>
         ) : (
-            <ListBooks title="MyReads" onChangeShelf={this.changeShelf} books={this.state.books} />
+            <ListBooks title="MyReads" onChangeShelf={this.changeShelf} onDisplaySearchPage={this.displaySearchPage} books={this.state.books} />
           )}
       </div>
     )
