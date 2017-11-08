@@ -25,6 +25,8 @@ class BooksApp extends React.Component {
         return b
       })
     }))
+
+    BooksAPI.update(book, shelf)
   }
 
   displaySearchPage = (event) => {
