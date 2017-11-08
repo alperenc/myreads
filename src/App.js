@@ -354,12 +354,14 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    const {books, showSearchPage} = this.state
+
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
+        {showSearchPage ? (
           <SearchBooks onDisplaySearchPage={this.displaySearchPage} />
         ) : (
-            <ListBooks title="MyReads" onChangeShelf={this.changeShelf} onDisplaySearchPage={this.displaySearchPage} books={this.state.books} />
+            <ListBooks title="MyReads" books={books} onChangeShelf={this.changeShelf} onDisplaySearchPage={this.displaySearchPage} />
           )}
       </div>
     )
