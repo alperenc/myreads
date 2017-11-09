@@ -36,16 +36,16 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
-    BooksAPI.getAll().then(books => this.setState({books}))
+    BooksAPI.getAll().then(books => this.setState({ books }))
   }
 
   render() {
-    const {books, showSearchPage} = this.state
+    const { books, showSearchPage } = this.state
 
     return (
       <div className="app">
         {showSearchPage ? (
-          <SearchBooks onDisplaySearchPage={this.displaySearchPage} />
+          <SearchBooks onChangeShelf={this.changeShelf} onDisplaySearchPage={this.displaySearchPage} />
         ) : (
             <ListBooks title="MyReads" books={books} onChangeShelf={this.changeShelf} onDisplaySearchPage={this.displaySearchPage} />
           )}
