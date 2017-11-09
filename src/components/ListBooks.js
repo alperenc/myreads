@@ -1,10 +1,11 @@
 import React from 'react'
-import startCase from 'lodash.startcase'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import startCase from 'lodash.startcase'
 import Bookshelf from './Bookshelf'
 
 const ListBooks = (props) => {
-  const {title, books, onChangeShelf, onDisplaySearchPage} = props
+  const {title, books, onChangeShelf} = props
   return (
     <div className="list-books">
       <div className="list-books-title">
@@ -18,7 +19,7 @@ const ListBooks = (props) => {
         </div>
       </div>
       <div className="open-search">
-        <a onClick={() => onDisplaySearchPage(true)}>Add a book</a>
+        <Link to="/search">Add a book</Link>
       </div>
     </div>
   )
