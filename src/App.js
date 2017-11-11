@@ -7,37 +7,37 @@ import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    myReads: []
   }
 
   changeShelf = (book, shelf) => {
-    this.setState(state => ({
-      books: state.books.map(b => {
-        if (b.id === book.id) {
-          b.shelf = shelf
-        }
-        return b
-      })
-    }))
+    if (book.shelf === shelf) return
+
+    const { myReads } = this.state
+
+    book.shelf = shelf
+    this.setState(state => {
+      myReads.filter(myRead => myRead.id !== book.id).concat(book)
+    })
 
     BooksAPI.update(book, shelf)
   }
 
   componentDidMount() {
-    BooksAPI.getAll().then(books => this.setState({ books }))
+    BooksAPI.getAll().then(books => this.setState({ myReads: books }))
   }
 
   render() {
-    const { books } = this.state
+    const { myReads } = this.state
 
     return (
       <div className="app">
         <Route exact path="/" render={() => (
-          <ListBooks title="MyReads" books={books} onChangeShelf={this.changeShelf} />
+          <ListBooks title="MyReads" books={myReads} onChangeShelf={this.changeShelf} />
         )} />
 
         <Route path="/search" render={() => (
-          <SearchBooks onChangeShelf={this.changeShelf} />
+          <SearchBooks books={myReads} onChangeShelf={this.changeShelf} />
         )} />
       </div>
     )

@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import debounce from 'lodash.debounce'
 import * as BooksAPI from '../BooksAPI'
 import Book from './Book'
 
 class SearchBooks extends Component {
+  static propTypes = {
+    books: PropTypes.array,
+    onChangeShelf: PropTypes.func.isRequired
+  }
+
   state = {
     searchResults: [],
     query: ''
@@ -11,17 +19,32 @@ class SearchBooks extends Component {
   updateQuery = (query) => {
     this.setState({ query })
 
-    BooksAPI.search(this.state.query, 20).then(books => this.setState({ searchResults: books }))
+    this.search(query)
+  }
+
+  search = (query) => {
+    const myReads = this.props.books
+
+    BooksAPI.search(query, 20).then(books => this.setState({
+      searchResults: books.map(book => {
+        let myRead = myReads.find(myRead => myRead.id === book.id)
+        return myRead ? myRead : book
+      })
+    }))
+  }
+
+  componentDidMount() {
+    this.search = debounce(this.search, 250)
   }
 
   render() {
-    const { onChangeShelf, onDisplaySearchPage } = this.props
-    const { query, searchResults } = this.state
+    const onChangeShelf = this.props.onChangeShelf
+    const { searchResults, query } = this.state
 
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <a className="close-search" onClick={() => onDisplaySearchPage(false)}>Close</a>
+          <Link to="/" className="close-search">Close</Link>
           <div className="search-books-input-wrapper">
             {/*
           NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -37,7 +60,7 @@ class SearchBooks extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {searchResults.map(book => (
+            {searchResults && searchResults.map(book => (
               <li key={book.id}>
                 <Book book={book} onChangeShelf={onChangeShelf} />
               </li>
