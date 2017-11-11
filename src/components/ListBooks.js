@@ -5,7 +5,9 @@ import startCase from 'lodash.startcase'
 import Bookshelf from './Bookshelf'
 
 const ListBooks = (props) => {
-  const {title, books, onChangeShelf} = props
+  const { title, books, onChangeShelf } = props
+  const shelves = ["currentlyReading", "wantToRead", "read"]
+
   return (
     <div className="list-books">
       <div className="list-books-title">
@@ -13,7 +15,7 @@ const ListBooks = (props) => {
       </div>
       <div className="list-books-content">
         <div>
-          {books.map(book => book.shelf).filter((value, index, self) => self.indexOf(value) === index).map(shelf => (
+          {shelves.map(shelf => (
             <Bookshelf key={shelf} title={startCase(shelf)} onChangeShelf={onChangeShelf} books={books.filter(book => book.shelf === shelf)} />
           ))}
         </div>
