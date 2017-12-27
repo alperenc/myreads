@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 import startCase from 'lodash.startcase'
 import Bookshelf from './Bookshelf'
 
-const ListBooks = (props) => {
-  const { title, books, onChangeShelf } = props
+const ListBooks = ({ title, books, onChangeShelf }) => {
   const shelves = ["currentlyReading", "wantToRead", "read"]
 
   return (
